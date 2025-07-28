@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>長輩健康運動影片推薦</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #f8f8f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .video-card:nth-child(1) {
+            border-left: 8px solid #dc143c;
+        }
+
+        .video-card:nth-child(2) {
+            border-left: 8px solid #ffd700;
+        }
+
+        .video-card:nth-child(3) {
+            border-left: 8px solid #1e90ff;
+        }
+
+        .card-header {
+            padding: 25px;
+            position: relative;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .video-card:nth-child(1) .card-header::before {
+            background: linear-gradient(90deg, #dc143c, #ff6b6b);
+        }
+
+        .video-card:nth-child(2) .card-header::before {
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+        }
+
+        .video-card:nth-child(3) .card-header::before {
+            background: linear-gradient(90deg, #1e90ff, #74b9ff);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .card-description {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .watch-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .watch-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .watch-button::before {
+            content: '▶ ';
+            margin-right: 8px;
+        }
+
+        .mondrian-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .mondrian-line {
+            position: absolute;
+            background: #1a1a1a;
+        }
+
+        .line-horizontal-1 {
+            top: 20%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+        }
+
+        .line-horizontal-2 {
+            top: 70%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+        }
+
+        .line-vertical-1 {
+            top: 0;
+            left: 25%;
+            width: 3px;
+            height: 100%;
+        }
+
+        .line-vertical-2 {
+            top: 0;
+            right: 30%;
+            width: 3px;
+            height: 100%;
+        }
+
+        .mondrian-rect {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .rect-red {
+            top: 5%;
+            right: 5%;
+            width: 120px;
+            height: 80px;
+            background: #dc143c;
+        }
+
+        .rect-blue {
+            bottom: 15%;
+            left: 8%;
+            width: 100px;
+            height: 100px;
+            background: #1e90ff;
+        }
+
+        .rect-yellow {
+            top: 40%;
+            left: 5%;
+            width: 80px;
+            height: 60px;
+            background: #ffd700;
+        }
+
+        .designer-credit {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            border-left: 6px solid #34495e;
+        }
+
+        .designer-credit p {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .designer-name {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .profession {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card-title {
+                font-size: 1.4rem;
+            }
+            
+            .mondrian-line {
+                display: none;
+            }
+            
+            .mondrian-rect {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mondrian-decoration">
+        <div class="mondrian-line line-horizontal-1"></div>
+        <div class="mondrian-line line-horizontal-2"></div>
+        <div class="mondrian-line line-vertical-1"></div>
+        <div class="mondrian-line line-vertical-2"></div>
+        <div class="mondrian-rect rect-red"></div>
+        <div class="mondrian-rect rect-blue"></div>
+        <div class="mondrian-rect rect-yellow"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">長輩健康運動影片推薦</h1>
+            <p class="subtitle">點選觀看專業推薦的健康運動影片</p>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="card-header">
+                    <h2 class="card-title">預防肌肉退化運動</h2>
+                    <p class="card-description">透過簡單有效的運動，幫助維持肌肉力量，預防因年齡增長而導致的肌肉退化問題。</p>
+                    <a href="https://www.youtube.com/shorts/qXZa8WAhoKA" target="_blank" class="watch-button">立即觀看</a>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="card-header">
+                    <h2 class="card-title">預防失智症運動</h2>
+                    <p class="card-description">專門設計的認知訓練運動，有助於活化大腦功能，預防失智症的發生。</p>
+                    <a href="https://youtu.be/HpTaqv31zcs?si=E80kYpug5Pm0emd9" target="_blank" class="watch-button">立即觀看</a>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="card-header">
+                    <h2 class="card-title">預防憂鬱蝴蝶擁抱法</h2>
+                    <p class="card-description">學習蝴蝶擁抱的舒緩技巧，有助於放鬆心情，緩解壓力，預防憂鬱情緒。</p>
+                    <a href="https://www.youtube.com/watch?v=lWkCS-g7Y-g" target="_blank" class="watch-button">立即觀看</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="designer-credit">
+            <p>設計師：<span class="designer-name">鍾孟修</span> <span class="profession">職能治療師</span></p>
+        </div>
+    </div>
+</body>
+</html>
