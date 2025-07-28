@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="健康活動推薦 - 預防肌肉退化、失智症、憂鬱症的運動指南">
+    <meta name="keywords" content="健康運動,長輩活動,預防失智,肌肉退化,蝴蝶擁抱法">
+    <title>健康活動推薦 - 長輩運動指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f8f8;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 8px solid #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            background: #dc143c;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 8px solid #000;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 30%;
+            width: 8px;
+            height: 100%;
+            background: #000;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 30%;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: #000;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            z-index: 1;
+            position: relative;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .activity-section {
+            padding: 40px;
+            border-right: 8px solid #000;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .activity-section:last-child {
+            border-right: none;
+        }
+
+        .activity-section:nth-child(1) {
+            background: #ffdd00;
+            border-bottom: 8px solid #000;
+        }
+
+        .activity-section:nth-child(2) {
+            background: #0066cc;
+            color: white;
+            border-bottom: 8px solid #000;
+        }
+
+        .activity-section:nth-child(3) {
+            background: white;
+            border-right: 8px solid #000;
+        }
+
+        .activity-section:nth-child(4) {
+            background: #ffdd00;
+        }
+
+        .activity-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .activity-link {
+            display: inline-block;
+            background: #dc143c;
+            color: white !important;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border: 4px solid #000;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin: 10px auto;
+            min-width: 200px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .activity-link:visited {
+            color: white !important;
+        }
+
+        .activity-link:hover,
+        .activity-link:focus {
+            background: #b91c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            outline: none;
+        }
+
+        .activity-link:active {
+            transform: translateY(-1px);
+        }
+
+        .activity-section:nth-child(2) .activity-link {
+            background: #ffdd00;
+            color: #000 !important;
+        }
+
+        .activity-section:nth-child(2) .activity-link:visited {
+            color: #000 !important;
+        }
+
+        .activity-section:nth-child(2) .activity-link:hover,
+        .activity-section:nth-child(2) .activity-link:focus {
+            background: #ffd700;
+        }
+
+        .activity-section:nth-child(3) .activity-link {
+            background: #0066cc;
+            color: white !important;
+        }
+
+        .activity-section:nth-child(3) .activity-link:visited {
+            color: white !important;
+        }
+
+        .activity-section:nth-child(3) .activity-link:hover,
+        .activity-section:nth-child(3) .activity-link:focus {
+            background: #0052a3;
+        }
+
+        .footer {
+            background: #000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            border-top: 8px solid #dc143c;
+        }
+
+        .footer .designer {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-section {
+                border-right: none;
+                border-bottom: 8px solid #000;
+            }
+            
+            .activity-section:last-child {
+                border-bottom: none;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .activity-title {
+                font-size: 1.5em;
+            }
+            
+            .activity-link {
+                font-size: 1.1em;
+                padding: 12px 20px;
+            }
+        }
+
+        /* 增加視覺層次感 */
+        .mondrian-accent {
+            position: absolute;
+            background: #dc143c;
+            z-index: 0;
+        }
+
+        .accent-1 {
+            top: 20%;
+            right: 0;
+            width: 20px;
+            height: 40%;
+        }
+
+        .accent-2 {
+            bottom: 0;
+            left: 60%;
+            width: 40%;
+            height: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>健康活動推薦</h1>
+            <p>為您精選的健康運動指南</p>
+        </header>
+        
+        <main class="content">
+            <section class="activity-section">
+                <div class="mondrian-accent accent-1"></div>
+                <h2 class="activity-title">預防肌肉退化</h2>
+                <a href="https://www.youtube.com/shorts/qXZa8WAhoKA" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="activity-link"
+                   aria-label="觀看預防肌肉退化運動影片">
+                   觀看運動影片
+                </a>
+            </section>
+            
+            <section class="activity-section">
+                <h2 class="activity-title">預防失智症</h2>
+                <a href="https://youtu.be/HpTaqv31zcs?si=E80kYpug5Pm0emd9" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="activity-link"
+                   aria-label="觀看預防失智症運動影片">
+                   觀看運動影片
+                </a>
+            </section>
+            
+            <section class="activity-section">
+                <div class="mondrian-accent accent-2"></div>
+                <h2 class="activity-title">預防憂鬱</h2>
+                <a href="https://www.youtube.com/watch?v=lWkCS-g7Y-g" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="activity-link"
+                   aria-label="觀看蝴蝶擁抱法影片">
+                   蝴蝶擁抱法
+                </a>
+            </section>
+            
+            <section class="activity-section">
+                <h2 class="activity-title">健康生活</h2>
+                <p style="text-align: center; font-size: 1.2em; color: #666;">
+                    持續運動<br>
+                    保持身心健康
+                </p>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div class="designer">設計師 鍾孟修</div>
+            <div>職能治療師</div>
+        </footer>
+    </div>
+</body>
+</html>
